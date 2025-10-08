@@ -17,6 +17,23 @@ namespace CloudGamesStore.Application.DTOs.GameDtos
         public bool IsActive { get; set; } = true;
         public DateTime CreatedAt { get; set; }
 
+        public static Game ToGame(GameDto gameDto)
+        {
+            if (gameDto != null)
+            {
+                return new Game
+                {
+                    Name = gameDto.Name,
+                    Description = gameDto.Description,
+                    GenreId = gameDto.GenreId,
+                    Price = gameDto.Price,
+                    IsActive = gameDto.IsActive,
+                    CreatedAt = gameDto.CreatedAt
+                };
+            }
+            return null;
+        }
+
         public static Game ToGame(CreateGameDto gameDto)
         {
             if (gameDto != null)
