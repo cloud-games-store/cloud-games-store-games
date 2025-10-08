@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace CloudGamesStore.Api.Controllers
 {
     [ApiController]
-    //[Authorize]
     [Route("api/[controller]")]
     public class GamesController : Controller
     {
@@ -38,6 +37,7 @@ namespace CloudGamesStore.Api.Controllers
         }
 
         [HttpPost("Create")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<GameDto>> Create(CreateGameDto createGameDto)
         {
             try
@@ -54,6 +54,7 @@ namespace CloudGamesStore.Api.Controllers
         }
 
         [HttpPost("Update")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<GameDto>> Update(UpdateGameDto gameDto)
         {
             try
@@ -70,6 +71,7 @@ namespace CloudGamesStore.Api.Controllers
         }
 
         [HttpDelete("Delete/{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Delete(int id)
         {
             try
