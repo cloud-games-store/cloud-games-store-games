@@ -1,0 +1,68 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36401.2
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{46BDA9F8-6934-4269-ACAA-072E54B79169}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudGamesStore.Domain", "CloudGamesStore.Domain\CloudGamesStore.Domain.csproj", "{EA77DB88-E406-43CA-A880-A42EA8DFFDC4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudGamesStore.Application", "CloudGamesStore.Application\CloudGamesStore.Application.csproj", "{5085C3AF-3C5E-4961-AE27-77A26D4BC40B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudGamesStore.Infrastructure", "CloudGamesStore.Infrastructure\CloudGamesStore.Infrastructure.csproj", "{A3445CEA-20D1-4BBB-8AAE-CECD9F44634B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudGamesStore.Api", "CloudGamesStore.Api\CloudGamesStore.Api.csproj", "{B75B20CE-5061-4940-97D1-BDAE589849AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudGamesStore.Tests", "CloudGamesStore.Tests\CloudGamesStore.Tests.csproj", "{7470C04F-A8F5-4B37-8C12-829FA3BD3349}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{C2584852-B343-4C8B-92FB-F6AD638E7D59}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{CEAD119B-709E-4F36-8142-CF0FA30BF6E2}"
+	ProjectSection(SolutionItems) = preProject
+		dotnet-pipeline.yml = dotnet-pipeline.yml
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EA77DB88-E406-43CA-A880-A42EA8DFFDC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA77DB88-E406-43CA-A880-A42EA8DFFDC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA77DB88-E406-43CA-A880-A42EA8DFFDC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA77DB88-E406-43CA-A880-A42EA8DFFDC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5085C3AF-3C5E-4961-AE27-77A26D4BC40B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5085C3AF-3C5E-4961-AE27-77A26D4BC40B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5085C3AF-3C5E-4961-AE27-77A26D4BC40B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5085C3AF-3C5E-4961-AE27-77A26D4BC40B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3445CEA-20D1-4BBB-8AAE-CECD9F44634B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3445CEA-20D1-4BBB-8AAE-CECD9F44634B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3445CEA-20D1-4BBB-8AAE-CECD9F44634B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3445CEA-20D1-4BBB-8AAE-CECD9F44634B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B75B20CE-5061-4940-97D1-BDAE589849AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B75B20CE-5061-4940-97D1-BDAE589849AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B75B20CE-5061-4940-97D1-BDAE589849AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B75B20CE-5061-4940-97D1-BDAE589849AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7470C04F-A8F5-4B37-8C12-829FA3BD3349}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7470C04F-A8F5-4B37-8C12-829FA3BD3349}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7470C04F-A8F5-4B37-8C12-829FA3BD3349}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7470C04F-A8F5-4B37-8C12-829FA3BD3349}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EA77DB88-E406-43CA-A880-A42EA8DFFDC4} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{5085C3AF-3C5E-4961-AE27-77A26D4BC40B} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{A3445CEA-20D1-4BBB-8AAE-CECD9F44634B} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{B75B20CE-5061-4940-97D1-BDAE589849AB} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{7470C04F-A8F5-4B37-8C12-829FA3BD3349} = {46BDA9F8-6934-4269-ACAA-072E54B79169}
+		{CEAD119B-709E-4F36-8142-CF0FA30BF6E2} = {C2584852-B343-4C8B-92FB-F6AD638E7D59}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {86DBA2E8-2D17-41E1-B678-7B24CEDEF0B8}
+	EndGlobalSection
+EndGlobal
