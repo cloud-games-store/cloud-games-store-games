@@ -2,6 +2,7 @@ using CloudGamesStore.Application.Interfaces;
 using CloudGamesStore.Application.Services;
 using CloudGamesStore.Domain.Interfaces;
 using CloudGamesStore.Infrastructure.Data;
+using CloudGamesStore.Infrastructure.Elasticsearch;
 using CloudGamesStore.Infrastructure.Repositories;
 using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -30,26 +31,31 @@ builder.Services.AddDbContext<GameStoreCheckoutDbContext>(options =>
 
 // Repositories
 builder.Services.AddScoped<IGameRepository, GameRepository>();
+builder.Services.AddScoped<IElasticSearchRepository, ElasticSearchRepository>();
 
 // Services
 builder.Services.AddScoped<IGameService, GameService>();
+builder.Services.AddScoped<IGameSearchService, GameSearchService>();
 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
-    {
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
-            ValidIssuer = builder.Configuration["Jwt:Issuer"],
-            ValidAudience = builder.Configuration["Jwt:Audience"],
-            IssuerSigningKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!)
-            )
-        };
-    });
+//ElasticSearch
+builder.Services.AddElasticSearch(builder.Configuration);
+
+//builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+//    .AddJwtBearer(options =>
+//    {
+//        options.TokenValidationParameters = new TokenValidationParameters
+//        {
+//            ValidateIssuer = true,
+//            ValidateAudience = true,
+//            ValidateLifetime = true,
+//            ValidateIssuerSigningKey = true,
+//            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+//            ValidAudience = builder.Configuration["Jwt:Audience"],
+//            IssuerSigningKey = new SymmetricSecurityKey(
+//                Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!)
+//            )
+//        };
+//    });
 builder.Services.AddAuthorization();
 
 // CORS
