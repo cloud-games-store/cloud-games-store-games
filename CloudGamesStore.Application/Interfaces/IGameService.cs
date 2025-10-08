@@ -1,4 +1,5 @@
 ﻿using CloudGamesStore.Application.DTOs.GameDtos;
+using CloudGamesStore.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,7 @@ namespace CloudGamesStore.Application.Interfaces
     public interface IGameService
     {
         Task<GameDto> GetGameById(int id);
+        Task<GameDto> GetByIdWithGenreAsync(int id);
         Task<List<GameDto>> GetAllGames();
         Task<GameDto> CreateGame(CreateGameDto gameDto);
         Task<GameDto> UpdateGame(UpdateGameDto gameDto);
