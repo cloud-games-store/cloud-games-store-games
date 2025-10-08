@@ -1,9 +1,5 @@
-﻿using CloudGamesStore.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CloudGamesStore.Application.DTOs.GenreDtos;
+using CloudGamesStore.Domain.Entities;
 
 namespace CloudGamesStore.Application.DTOs.GameDtos
 {
@@ -14,6 +10,7 @@ namespace CloudGamesStore.Application.DTOs.GameDtos
         public string Description { get; set; } = string.Empty;
         public decimal Price { get; set; }
         public int GenreId { get; set; }
+        public GenreDto Genre { get; set; }
         public bool IsActive { get; set; } = true;
         public DateTime CreatedAt { get; set; }
 
@@ -52,19 +49,24 @@ namespace CloudGamesStore.Application.DTOs.GameDtos
             return null;
         }
 
-        public static GameDto? ToGameDto(Game gameDto)
+        public static GameDto? ToGameDto(Game game)
         {
-            if (gameDto != null)
+            if (game != null)
             {
                 return new GameDto
                 {
-                    Id = gameDto.Id,
-                    Name = gameDto.Name,
-                    Description = gameDto.Description,
-                    GenreId = gameDto.GenreId,
-                    Price = gameDto.Price,
-                    IsActive = gameDto.IsActive,
-                    CreatedAt = gameDto.CreatedAt
+                    Id = game.Id,
+                    Name = game.Name,
+                    Description = game.Description,
+                    GenreId = game.GenreId,
+                    Genre = new GenreDto
+                    {
+                        GenreId = game.Id,
+                        Name = game.Name
+                    },
+                    Price = game.Price,
+                    IsActive = game.IsActive,
+                    CreatedAt = game.CreatedAt
                 };
             }
             return null;

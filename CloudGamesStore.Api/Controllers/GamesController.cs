@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace CloudGamesStore.Api.Controllers
 {
     [ApiController]
-    [Authorize]
+    //[Authorize]
     [Route("api/[controller]")]
     public class GamesController : Controller
     {
