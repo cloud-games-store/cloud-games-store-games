@@ -1,0 +1,53 @@
+﻿﻿﻿name: CI - Build & Test .NET 8 & Deploy
+
+on:
+  push:
+    branches: ["*"]
+  pull_request:
+    branches: ["*"]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout do código
+        uses: actions/checkout@v3
+
+      - name: 🧰 Instalar .NET 8 Preview
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: 🔁 Restaurar pacotes
+        run: dotnet restore cloud-games-store-games.sln
+
+      - name: 🛠️ Build do projeto
+        run: dotnet build cloud-games-store-games.sln --configuration Release --no-restore
+
+      - name: 🧪 Executar testes (Release)
+        run: |
+          dotnet test cloud-games-store-games.sln \
+            --configuration Release \
+            --no-restore \
+            --no-build \
+            --verbosity normal
+
+  push-to-acr:
+    needs: build-and-test
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout do código
+        uses: actions/checkout@v3
+
+      - name: 🐳 Build da imagem Docker
+        run: docker build -t ${{ secrets.ACR_LOGIN_SERVER }}/users-api:latest .
+
+      - name: 🔑 Login no Azure Container Registry
+        run: |
+          echo ${{ secrets.ACR_PASSWORD }} | docker login ${{ secrets.ACR_LOGIN_SERVER }} -u ${{ secrets.ACR_USERNAME }} --password-stdin
+
+      - name: 🚀 Push da imagem para o ACR
+        run: docker push ${{ secrets.ACR_LOGIN_SERVER }}/users-api:latest
