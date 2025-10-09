@@ -23,7 +23,7 @@ namespace CloudGamesStore.Api.Controllers
         [HttpGet()]
         public async Task<ActionResult<List<GameDto>>> All()
         {
-            var result = await _gameService.GetAllGames();
+            var result = await _gameService.GetAllWithGenreAsync();
 
             return Ok(result);
         }
@@ -31,7 +31,7 @@ namespace CloudGamesStore.Api.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<List<GameDto>>> GetById(int id)
         {
-            var result = await _gameService.GetGameById(id);
+            var result = await _gameService.GetByIdWithGenreAsync(id);
 
             return Ok(result);
         }

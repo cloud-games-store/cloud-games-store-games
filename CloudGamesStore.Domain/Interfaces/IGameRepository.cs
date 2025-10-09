@@ -10,5 +10,6 @@ namespace CloudGamesStore.Domain.Interfaces
     public interface IGameRepository : IRepository<Game>
     {
         Task<Game> GetByIdWithGenreAsync(int id);
+        Task<List<Game>> GetAllWithGenreAsync();
     }
 }

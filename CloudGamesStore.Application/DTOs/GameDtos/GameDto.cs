@@ -78,8 +78,8 @@ namespace CloudGamesStore.Application.DTOs.GameDtos
                     GenreId = game.GenreId,
                     Genre = new GenreDto
                     {
-                        GenreId = game.Id,
-                        Name = game.Name
+                        GenreId = game.GenreId,
+                        Name = game?.Genre?.Name
                     },
                     Price = game.Price,
                     IsActive = game.IsActive,
