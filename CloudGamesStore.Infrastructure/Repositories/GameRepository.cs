@@ -20,7 +20,12 @@ namespace CloudGamesStore.Infrastructure.Repositories
 
         public async Task<Game> GetByIdWithGenreAsync(int id)
         {
-            return await _dbSet.Include(x => x.Genre).FirstOrDefaultAsync();
+            return await _dbSet.Include(x => x.Genre).FirstOrDefaultAsync(x => x.Id == id);
+        }
+
+        public async Task<List<Game>> GetAllWithGenreAsync()
+        {
+            return await _dbSet.Include(x => x.Genre).ToListAsync();
         }
     }
 }

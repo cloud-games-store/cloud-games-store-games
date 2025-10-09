@@ -31,31 +31,33 @@ builder.Services.AddDbContext<GameStoreCheckoutDbContext>(options =>
 
 // Repositories
 builder.Services.AddScoped<IGameRepository, GameRepository>();
+builder.Services.AddScoped<IGenreRepository, GenreRepository>();
 builder.Services.AddScoped<IElasticSearchRepository, ElasticSearchRepository>();
 
 // Services
 builder.Services.AddScoped<IGameService, GameService>();
+builder.Services.AddScoped<IGenreService, GenreService>();
 builder.Services.AddScoped<IGameSearchService, GameSearchService>();
 
 //ElasticSearch
 builder.Services.AddElasticSearch(builder.Configuration);
 
-//builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-//    .AddJwtBearer(options =>
-//    {
-//        options.TokenValidationParameters = new TokenValidationParameters
-//        {
-//            ValidateIssuer = true,
-//            ValidateAudience = true,
-//            ValidateLifetime = true,
-//            ValidateIssuerSigningKey = true,
-//            ValidIssuer = builder.Configuration["Jwt:Issuer"],
-//            ValidAudience = builder.Configuration["Jwt:Audience"],
-//            IssuerSigningKey = new SymmetricSecurityKey(
-//                Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!)
-//            )
-//        };
-//    });
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!)
+            )
+        };
+    });
 builder.Services.AddAuthorization();
 
 // CORS

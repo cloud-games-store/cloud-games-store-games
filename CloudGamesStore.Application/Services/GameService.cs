@@ -43,6 +43,14 @@ namespace CloudGamesStore.Application.Services
 
             return convertedResult;
         }
+        
+        public async Task<List<GameDto>> GetAllWithGenreAsync()
+        {
+            var result = await _gameRepository.GetAllWithGenreAsync();
+            var convertedResult = result.Select(game => GameDto.ToGameDto(game)).ToList();
+
+            return convertedResult;
+        }
 
         public async Task<GameDto> GetGameById(int id)
         {
