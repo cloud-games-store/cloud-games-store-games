@@ -101,39 +101,19 @@ builder.Services.AddCors(options =>
     });
 });
 
-// Rate Limiting
-//builder.Services.AddRateLimiter(options =>
-//{
-//    options.AddFixedWindowLimiter("CheckoutPolicy", config =>
-//    {
-//        config.PermitLimit = 10;
-//        config.Window = TimeSpan.FromMinutes(1);
-//        config.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
-//        config.QueueLimit = 5;
-//    });
-//});
-
-// Caching
-//builder.Services.AddMemoryCache();
-//builder.Services.AddStackExchangeRedisCache(options =>
-//{
-//    options.Configuration = builder.Configuration.GetConnectionString("Redis");
-//});
-
-// Health Checks
-//builder.Services.AddHealthChecks()
-//    .AddSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")!)
-//    .AddRedis(builder.Configuration.GetConnectionString("Redis")!);
-
-// Logging
-//builder.Services.AddSerilog((services, lc) => lc
-//    .ReadFrom.Configuration(builder.Configuration)
-//    .ReadFrom.Services(services)
-//    .Enrich.FromLogContext()
-//    .WriteTo.Console()
-//    .WriteTo.File("logs/gamestore-.txt", rollingInterval: RollingInterval.Day));
-
 var app = builder.Build();
+
+
+#region Apply Migrations
+
+using var scope = app.Services.CreateScope();
+var services = scope.ServiceProvider;
+
+using var context = services.GetRequiredService<GameStoreCheckoutDbContext>();
+
+context.Database.Migrate();
+
+#endregion
 
 // Configure the HTTP request pipeline.
 app.UseSwagger();
