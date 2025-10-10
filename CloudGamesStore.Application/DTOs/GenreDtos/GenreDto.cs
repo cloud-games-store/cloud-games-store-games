@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CloudGamesStore.Domain.Entities;
 
 namespace CloudGamesStore.Application.DTOs.GenreDtos
 {
@@ -10,5 +6,31 @@ namespace CloudGamesStore.Application.DTOs.GenreDtos
     {
         public int GenreId { get; set; }
         public string Name { get; set; }
+
+        public static GenreDto ToGenreDto(Genre genre)
+        {
+            return new GenreDto
+            {
+                GenreId = genre.GenreId,
+                Name = genre.Name
+            };
+        }
+
+        public static Genre ToGenre(UpdateGenreDto updateGenreDto)
+        {
+            return new Genre
+            {
+                GenreId = updateGenreDto.GenreId,
+                Name = updateGenreDto.Name
+            };
+        }
+
+        public static Genre ToGenre(CreateGenreDto createGenreDto)
+        {
+            return new Genre
+            {
+                Name = createGenreDto.Name
+            };
+        }
     }
 }
