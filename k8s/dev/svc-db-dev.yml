@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: svc-db
+spec:
+    type: ClusterIP
+    ports:
+        - port: 1433 # Porta personalizada pra "já bater na porta alvo", evita mapeamento desnecessário
+          targetPort: 1433 # Nesse caso, como a porta é a mesma, não precisaria declarar pois o kubernetes assumiria o mesmo valor de port
+    selector:
+        app: pod-db

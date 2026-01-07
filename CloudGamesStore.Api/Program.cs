@@ -6,7 +6,9 @@ using CloudGamesStore.Infrastructure.Elasticsearch;
 using CloudGamesStore.Infrastructure.Repositories;
 using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
@@ -47,6 +49,15 @@ builder.Services.AddSwaggerGen(opt =>
         }
     });
 });
+
+#region Health Check
+builder.Services.AddHealthChecks().AddSqlServer(
+    builder.Configuration.GetConnectionString("DbConnection")!,
+    name: "sqlserver",
+    failureStatus: HealthStatus.Unhealthy,
+    timeout: TimeSpan.FromSeconds(5)
+);
+#endregion
 
 // Add FluentValidation
 //builder.Services.AddFluentValidation(fv =>
@@ -102,6 +113,18 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
+
+#region Health Check Endpoints
+app.MapHealthChecks("/health/live", new HealthCheckOptions
+{
+    Predicate = _ => false
+});
+
+app.MapHealthChecks("/health/ready", new HealthCheckOptions
+{
+    Predicate = check => check.Name == "sqlserver"
+});
+#endregion
 
 
 #region Apply Migrations

@@ -51,3 +51,40 @@ jobs:
 
       - name: 🚀 Push da imagem para o ACR
         run: docker push ${{ secrets.ACR_LOGIN_SERVER }}/games-api:latest
+
+  push-to-aks:
+    needs: push-to-acr
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Checkout do código
+        uses: actions/checkout@v3
+        
+      - name: 🔑 Login no Azure Kubernetes 
+        uses: azure/k8s-set-context@v1
+        with:
+          method: kubeconfig
+          kubeconfig: ${{ secrets.KUBE_CONFIG }}
+          
+      - name: 🔍 Validar conexão com o cluster
+        run: kubectl get nodes
+      
+      - name: 🔐 Aplicar secrets
+        run: |
+          kubectl create secret generic secret-games \
+          -n games \
+          --from-literal=Jwt__Key="${{ secrets.JWT_KEY }}" \
+          --from-literal=Jwt__Issuer="${{ secrets.JWT_ISSUER }}" \
+          --from-literal=ConnectionStrings__DbConnection="${{ secrets.DB_CONNECTION }}" \
+          --dry-run=client -o yaml | kubectl apply -f -
+      
+      - name: 🚀 Deploy no AKS
+        run: |
+          kubectl apply -f k8s/prod/deployment-games.yml
+          kubectl set image deployment/deployment-games \
+            fiapcloudgames-games=${{ secrets.ACR_LOGIN_SERVER }}/games-api:latest \
+            -n games
+
+      - name: ⏱️ Aguardar rollout
+        run: kubectl rollout status deployment/deployment-games -n games
