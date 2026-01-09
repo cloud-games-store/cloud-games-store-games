@@ -53,7 +53,7 @@ builder.Services.AddApplicationInsightsTelemetry();
 
 #region Health Check
 builder.Services.AddHealthChecks().AddSqlServer(
-    builder.Configuration.GetConnectionString("DbConnection")!,
+    builder.Configuration.GetConnectionString("DefaultConnection")!,
     name: "sqlserver",
     failureStatus: HealthStatus.Unhealthy,
     timeout: TimeSpan.FromSeconds(5)
