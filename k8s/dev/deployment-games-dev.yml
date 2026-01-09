@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: deployment-games
+spec:
+    replicas: 3
+    selector:
+        matchLabels:
+            app: pod-games
+    template:
+        metadata:
+            labels:
+                app: pod-games
+        spec:
+            containers:
+                - name: fiapcloudgames-games
+                  image:  games-api:local
+                  imagePullPolicy: IfNotPresent
+                  ports:
+                    - containerPort: 8080 # Porta que a aplicação .NET está ouvindo
+                  resources:
+                    requests: # O mínimo garantido 
+                        cpu: "200m"
+                        memory: "128Mi"
+                    limits: # O máximo suportado no Pod
+                        cpu: "500m"
+                        memory: "256Mi"
+                  env:
+                    - name: Jwt__Key
+                      valueFrom:
+                        secretKeyRef:
+                            name: secret-games
+                            key: Jwt__Key
+                    
+                    - name: Jwt__Issuer
+                      valueFrom:
+                        secretKeyRef:
+                            name: secret-games
+                            key: Jwt__Issuer
+                    - name: ConnectionStrings__DefaultConnection
+                      valueFrom:
+                        secretKeyRef:
+                            name: secret-games
+                            key: ConnectionStrings__DefaultConnection

@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: deployment-games
+    namespace: games
+spec:
+    selector:
+        matchLabels:
+            app: pod-games
+    template:
+        metadata:
+            labels:
+                app: pod-games
+        spec:
+            containers:
+                - name: fiapcloudgames-games
+                  image:  games-api:local
+                  imagePullPolicy: Always
+                  ports:
+                    - containerPort: 8080 # Porta que a aplicação .NET está ouvindo
+                  startupProbe:
+                    httpGet:
+                        path: /health/live
+                        port: 8080
+                    failureThreshold: 30
+                    periodSeconds: 10
+                  livenessProbe:
+                    httpGet:
+                        path: /health/live
+                        port: 8080
+                    initialDelaySeconds: 10
+                    periodSeconds: 30
+                  readinessProbe:
+                    httpGet:
+                        path: /health/ready
+                        port: 8080
+                    initialDelaySeconds: 10
+                    periodSeconds: 5
+                  resources:
+                    requests: # O mínimo garantido 
+                        cpu: "200m"
+                        memory: "128Mi"
+                    limits: # O máximo suportado no Pod
+                        cpu: "500m"
+                        memory: "512Mi"
+                  env:
+                    - name: Jwt__Key
+                      valueFrom:
+                        secretKeyRef:
+                            name: secret-games
+                            key: Jwt__Key
+                    
+                    - name: Jwt__Issuer
+                      valueFrom:
+                        secretKeyRef:
+                            name: secret-games
+                            key: Jwt__Issuer
+                    - name: ConnectionStrings__DefaultConnection
+                      valueFrom:
+                        secretKeyRef:
+                            name: secret-games
+                            key: ConnectionStrings__DefaultConnection
+                    - name: APPLICATIONINSIGHTS_CONNECTION_STRING
+                      valueFrom:
+                        secretKeyRef:
+                            name: secret-games
+                            key: APPLICATIONINSIGHTS_CONNECTION_STRING

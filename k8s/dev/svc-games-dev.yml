@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: svc-deployment-games
+spec:
+    type: NodePort
+    ports:
+        - port: 80 # Porta padrão da service
+          targetPort: 8080 # Porta alvo do Pod
+    selector:
+        app: pod-games
