@@ -55,11 +55,11 @@ spec:
                         secretKeyRef:
                             name: secret-games
                             key: Jwt__Issuer
-                    - name: ConnectionStrings__DbConnection
+                    - name: ConnectionStrings__DefaultConnection
                       valueFrom:
                         secretKeyRef:
                             name: secret-games
-                            key: ConnectionStrings__DbConnection
+                            key: ConnectionStrings__DefaultConnection
                     - name: APPLICATIONINSIGHTS_CONNECTION_STRING
                       valueFrom:
                         secretKeyRef:
