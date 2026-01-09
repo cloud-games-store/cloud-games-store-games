@@ -32,7 +32,12 @@ namespace CloudGamesStore.Infrastructure.Services
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            var factory = new ConnectionFactory { HostName = _configuration["RabbitMq:Host"] };
+            var connectionString = _configuration["RabbitMq:Host"];
+
+            var factory = new ConnectionFactory
+            {
+                Uri = new Uri(connectionString)
+            };
             _connection = await factory.CreateConnectionAsync(stoppingToken);
             _channel = await _connection.CreateChannelAsync(cancellationToken: stoppingToken);
 
