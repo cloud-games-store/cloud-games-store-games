@@ -49,6 +49,7 @@ builder.Services.AddSwaggerGen(opt =>
         }
     });
 });
+builder.Services.AddApplicationInsightsTelemetry();
 
 #region Health Check
 builder.Services.AddHealthChecks().AddSqlServer(

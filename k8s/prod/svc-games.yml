@@ -4,7 +4,7 @@ metadata:
     name: svc-deployment-games
     namespace: games
 spec:
-    type: NodePort
+    type: ClusterIP
     ports:
         - port: 80 # Porta padrão da service
           targetPort: 8080 # Porta alvo do Pod
