@@ -16,10 +16,19 @@ namespace CloudGamesStore.Infrastructure.Data
 
         public DbSet<Game> Games { get; set; }
         public DbSet<Genre> Genres { get; set; }
+        public DbSet<GameLibrary> GameLibraries { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(GameStoreCheckoutDbContext).Assembly);
+
+            modelBuilder.Entity<GameLibrary>()
+                .HasOne(ug => ug.Game)
+                .WithMany()
+                .HasForeignKey(ug => ug.GameId);
+
+            modelBuilder.Entity<GameLibrary>()
+                .HasIndex(ug => ug.UserId);
 
             modelBuilder.Entity<Genre>().HasData(
                 new Genre

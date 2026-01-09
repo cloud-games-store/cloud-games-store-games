@@ -16,15 +16,12 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="8.0.1" />
     <PackageReference Include="OpenSearch.Client" Version="1.8.0" />
+    <PackageReference Include="RabbitMQ.Client" Version="7.2.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\CloudGamesStore.Application\CloudGamesStore.Application.csproj" />
     <ProjectReference Include="..\CloudGamesStore.Domain\CloudGamesStore.Domain.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>
