@@ -65,3 +65,8 @@ spec:
                         secretKeyRef:
                             name: secret-games
                             key: APPLICATIONINSIGHTS_CONNECTION_STRING
+                    - name: RabbitMq__Host
+                      valueFrom:
+                        secretKeyRef:
+                            name: secret-games
+                            key: RabbitMq__Host

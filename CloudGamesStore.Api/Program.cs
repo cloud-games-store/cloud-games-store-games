@@ -4,6 +4,7 @@ using CloudGamesStore.Domain.Interfaces;
 using CloudGamesStore.Infrastructure.Data;
 using CloudGamesStore.Infrastructure.Elasticsearch;
 using CloudGamesStore.Infrastructure.Repositories;
+using CloudGamesStore.Infrastructure.Services;
 using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
@@ -79,6 +80,7 @@ builder.Services.AddScoped<IElasticSearchRepository, ElasticSearchRepository>();
 builder.Services.AddScoped<IGameService, GameService>();
 builder.Services.AddScoped<IGenreService, GenreService>();
 builder.Services.AddScoped<IGameSearchService, GameSearchService>();
+builder.Services.AddHostedService<GameLiberationWorker>();
 
 //ElasticSearch
 builder.Services.AddElasticSearch(builder.Configuration);
